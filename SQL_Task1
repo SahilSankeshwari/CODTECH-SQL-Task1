@@ -1,0 +1,65 @@
+/* PERFORM INNER, LEFT, RIGHT, AND FULL JOINS ON TABLES TO COMBINE DATA MEANINGFULLY */
+
+/*Dataset Creation:
+We will create two tables (employees and departments) for Tasks 1 and 2.*/
+
+-- Create departments table
+CREATE TABLE departments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    dept_name VARCHAR(100)
+);
+
+-- Insert data into departments
+INSERT INTO departments (dept_name)
+VALUES
+('HR'),
+('Engineering'),
+('Marketing'),
+('Sales');
+
+-- Create employees table
+CREATE TABLE employees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    dept_id INT,
+    salary DECIMAL(10, 2),
+    FOREIGN KEY (dept_id) REFERENCES departments(id)
+);
+
+-- Insert data into employees
+INSERT INTO employees (name, dept_id, salary)
+VALUES
+('Alice', 1, 50000),
+('Bob', 2, 80000),
+('Charlie', 2, 75000),
+('Diana', 3, 60000),
+('Eve', NULL, 40000);
+
+/* Task 1: Joins Practice */
+
+-- INNER JOIN
+SELECT employees.name, departments.dept_name
+FROM employees
+INNER JOIN departments ON employees.dept_id = departments.id;
+
+-- LEFT JOIN
+SELECT employees.name, departments.dept_name
+FROM employees
+LEFT JOIN departments ON employees.dept_id = departments.id;
+
+-- RIGHT JOIN
+SELECT employees.name, departments.dept_name
+FROM employees
+RIGHT JOIN departments ON employees.dept_id = departments.id;
+
+-- FULL JOIN (simulate using UNION in MySQL)
+SELECT employees.name, departments.dept_name
+FROM employees
+LEFT JOIN departments ON employees.dept_id = departments.id
+UNION
+SELECT employees.name, departments.dept_name
+FROM employees
+RIGHT JOIN departments ON employees.dept_id = departments.id;
+
+
+
